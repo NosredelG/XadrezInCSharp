@@ -19,6 +19,10 @@ namespace xadrez_console
                 tab.ColocarPeca(new Torre(tab, Cor.Branca), new Posicao(7, 7));
 
                 Tela.ImprimirTabuleiro(tab);
+
+                PosicaoXadrez pos = new PosicaoXadrez('a', 1);
+                Console.WriteLine(pos);
+                Console.WriteLine(pos.ToPosicao());
             }
             catch (TabuleiroException e) 
             {
