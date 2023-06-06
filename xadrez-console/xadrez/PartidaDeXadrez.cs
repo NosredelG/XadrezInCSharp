@@ -45,6 +45,8 @@ namespace xadrez
             tab.ColocarPeca(new Peao(tab, Cor.Preta), new PosicaoXadrez('f', 7).ToPosicao());
             tab.ColocarPeca(new Peao(tab, Cor.Preta), new PosicaoXadrez('g', 7).ToPosicao());
             tab.ColocarPeca(new Peao(tab, Cor.Preta), new PosicaoXadrez('h', 7).ToPosicao());
+
+            tab.ColocarPeca(new Torre(tab, Cor.Branca), new PosicaoXadrez('e', 3).ToPosicao());
         }
     }
 }
