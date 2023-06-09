@@ -99,6 +99,13 @@ namespace xadrez_console
             return new PosicaoXadrez(coluna, linha);
         }
 
+        public static char EscolherPecaPromocao()
+        {
+            Console.WriteLine("Escolha para qual peca sera promivada (D/B/C/T): ");
+            char ch = char.Parse(Console.ReadLine());
+            return ch;
+        }
+
         public static void ImprimirPeca(Peca peca)
         {
             if (peca == null)

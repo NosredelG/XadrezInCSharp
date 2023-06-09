@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using tabuleiro;
+using xadrez_console;
 
 namespace xadrez
 {
@@ -136,12 +137,48 @@ namespace xadrez
         public void RealizaJogada(Posicao origem, Posicao destino)
         {
             Peca pecaCapturada = ExecutaMovimento(origem, destino);
+            Peca p = tab.peca(destino);
 
             if (EstaEmXeque(jogadorAtual))
             {
                 DesfazMovimento(origem, destino, pecaCapturada);
                 throw new TabuleiroException("Voce nao pode se colocar em xeque!");
                 Console.ReadLine();
+            }
+
+            // jogada especial promocao
+            if(p is Peao)
+            {
+                if((p.cor == Cor.Branca && destino.linha == 0) || (p.cor == Cor.Preta && destino.linha == 7))
+                {
+                    p = tab.RetirarPeca(destino);
+                    pecas.Remove(p);
+                    char ch = Tela.EscolherPecaPromocao();
+                    if (ch == 'T' || ch == 't')
+                    {
+                        Peca torre = new Torre(tab, p.cor);
+                        tab.ColocarPeca(torre, destino);
+                        pecas.Add(torre);
+                    }
+                    else if (ch == 'B' || ch == 'b')
+                    {
+                        Peca bispo = new Bispo(tab, p.cor);
+                        tab.ColocarPeca(bispo, destino);
+                        pecas.Add(bispo);
+                    }
+                    else if (ch == 'C' || ch == 'c')
+                    {
+                        Peca cavalo = new Cavalo(tab, p.cor);
+                        tab.ColocarPeca(cavalo, destino);
+                        pecas.Add(cavalo);
+                    }
+                    else 
+                    {
+                        Peca dama = new Dama(tab, p.cor);
+                        tab.ColocarPeca(dama, destino);
+                        pecas.Add(dama);
+                    }
+                }
             }
 
             if (EstaEmXeque(Adversaria(jogadorAtual)))
@@ -163,10 +200,7 @@ namespace xadrez
                 MudaJogador();
             }
 
-
             // jogada especial En Passant
-            Peca p = tab.peca(destino);
-
             if(p is Peao && (destino.linha == origem.linha - 2 || destino.linha == origem.linha + 2))
             {
                 vulneravelEnPassant = p;
