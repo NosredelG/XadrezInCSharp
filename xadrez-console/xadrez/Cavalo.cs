@@ -21,54 +21,54 @@ namespace xadrez
 
             Posicao pos = new Posicao(0, 0);
 
-            //acima
-            pos.DefinirValores(posicao.linha - 1, posicao.coluna);
-            while (tab.PosicaValida(pos) && PodeMover(pos))
+            //acima-esquerda
+            pos.DefinirValores(posicao.linha + 2, posicao.coluna - 1);
+            if (tab.PosicaValida(pos) && PodeMover(pos))
             {
                 mat[pos.linha, pos.coluna] = true;
-                if (tab.peca(pos) != null && tab.peca(pos).cor != cor)
-                {
-                    break;
-                }
-                pos.linha = pos.linha - 1;
             }
-
-            //esquerda
-            pos.DefinirValores(posicao.linha, posicao.coluna - 1);
-            while (tab.PosicaValida(pos) && PodeMover(pos))
+            //acima-direita
+            pos.DefinirValores(posicao.linha + 2, posicao.coluna + 1);
+            if (tab.PosicaValida(pos) && PodeMover(pos))
             {
                 mat[pos.linha, pos.coluna] = true;
-                if (tab.peca(pos) != null && tab.peca(pos).cor != cor)
-                {
-                    break;
-                }
-                pos.coluna = pos.coluna - 1;
             }
-
-            //direita
-            pos.DefinirValores(posicao.linha, posicao.coluna + 1);
-            while (tab.PosicaValida(pos) && PodeMover(pos))
+            //abaixo-esquerda
+            pos.DefinirValores(posicao.linha - 2, posicao.coluna - 1);
+            if (tab.PosicaValida(pos) && PodeMover(pos))
             {
                 mat[pos.linha, pos.coluna] = true;
-                if (tab.peca(pos) != null && tab.peca(pos).cor != cor)
-                {
-                    break;
-                }
-                pos.coluna = pos.coluna + 1;
             }
-
-            //abaixo
-            pos.DefinirValores(posicao.linha + 1, posicao.coluna);
-            while (tab.PosicaValida(pos) && PodeMover(pos))
+            //abaixo-direita
+            pos.DefinirValores(posicao.linha - 2, posicao.coluna + 1);
+            if (tab.PosicaValida(pos) && PodeMover(pos))
             {
                 mat[pos.linha, pos.coluna] = true;
-                if (tab.peca(pos) != null && tab.peca(pos).cor != cor)
-                {
-                    break;
-                }
-                pos.linha = pos.linha + 1;
             }
-
+            //direita-acima
+            pos.DefinirValores(posicao.linha + 1, posicao.coluna + 2);
+            if (tab.PosicaValida(pos) && PodeMover(pos))
+            {
+                mat[pos.linha, pos.coluna] = true;
+            }
+            //direita-abaixo
+            pos.DefinirValores(posicao.linha - 1, posicao.coluna + 2);
+            if (tab.PosicaValida(pos) && PodeMover(pos))
+            {
+                mat[pos.linha, pos.coluna] = true;
+            }
+            //esquerda-acima
+            pos.DefinirValores(posicao.linha + 1, posicao.coluna - 2);
+            if (tab.PosicaValida(pos) && PodeMover(pos))
+            {
+                mat[pos.linha, pos.coluna] = true;
+            }
+            //esquerda-abaixo
+            pos.DefinirValores(posicao.linha - 1, posicao.coluna - 2);
+            if (tab.PosicaValida(pos) && PodeMover(pos))
+            {
+                mat[pos.linha, pos.coluna] = true;
+            }
             return mat;
         }
 

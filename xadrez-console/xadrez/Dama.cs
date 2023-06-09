@@ -2,9 +2,9 @@
 
 namespace xadrez
 {
-    internal class Rainha : Peca
+    internal class Dama : Peca
     {
-        public Rainha(Tabuleiro tab, Cor cor) : base (tab, cor)
+        public Dama(Tabuleiro tab, Cor cor) : base (tab, cor)
         {
 
         }
@@ -67,6 +67,55 @@ namespace xadrez
                     break;
                 }
                 pos.linha = pos.linha + 1;
+            }
+
+            //nordeste
+            pos.DefinirValores(posicao.linha - 1, posicao.coluna + 1);
+            while (tab.PosicaValida(pos) && PodeMover(pos))
+            {
+                mat[pos.linha, pos.coluna] = true;
+                if (tab.peca(pos) != null && tab.peca(pos).cor != cor)
+                {
+                    break;
+                }
+                pos.linha = pos.linha - 1;
+                pos.coluna = pos.coluna + 1;
+            }
+            //noroeste
+            pos.DefinirValores(posicao.linha - 1, posicao.coluna - 1);
+            while (tab.PosicaValida(pos) && PodeMover(pos))
+            {
+                mat[pos.linha, pos.coluna] = true;
+                if (tab.peca(pos) != null && tab.peca(pos).cor != cor)
+                {
+                    break;
+                }
+                pos.linha = pos.linha - 1;
+                pos.coluna = pos.coluna - 1;
+            }
+            //sudeste
+            pos.DefinirValores(posicao.linha + 1, posicao.coluna + 1);
+            while (tab.PosicaValida(pos) && PodeMover(pos))
+            {
+                mat[pos.linha, pos.coluna] = true;
+                if (tab.peca(pos) != null && tab.peca(pos).cor != cor)
+                {
+                    break;
+                }
+                pos.linha = pos.linha + 1;
+                pos.coluna = pos.coluna + 1;
+            }
+            //sudoeste
+            pos.DefinirValores(posicao.linha + 1, posicao.coluna - 1);
+            while (tab.PosicaValida(pos) && PodeMover(pos))
+            {
+                mat[pos.linha, pos.coluna] = true;
+                if (tab.peca(pos) != null && tab.peca(pos).cor != cor)
+                {
+                    break;
+                }
+                pos.linha = pos.linha + 1;
+                pos.coluna = pos.coluna - 1;
             }
 
             return mat;

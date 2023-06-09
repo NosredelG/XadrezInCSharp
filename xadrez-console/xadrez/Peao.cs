@@ -15,43 +15,79 @@ namespace xadrez
             return p == null || p.cor != cor;
         }
 
+        private bool ExisteInimigo(Posicao pos)
+        {
+            Peca p = tab.peca(pos);
+            return p!= null && p.cor != cor;
+        }
+
+        private bool Livre(Posicao pos)
+        {
+            return tab.peca(pos) == null;
+        }
+
         public override bool[,] MovimentosPossiveis()
         {
             bool[,] mat = new bool[tab.linhas, tab.colunas];
 
             Posicao pos = new Posicao(0, 0);
 
-            //acima
-            pos.DefinirValores(posicao.linha - 1, posicao.coluna);
-            if (tab.PosicaValida(pos) && PodeMover(pos))
+            if(cor == Cor.Branca)
             {
-                mat[pos.linha, pos.coluna] = true;
+                //andar uma casa
+                pos.DefinirValores(posicao.linha - 1, posicao.coluna);
+                if (tab.PosicaValida(pos) && Livre(pos))
+                {
+                    mat[pos.linha, pos.coluna] = true;
+                }
+                //andar duas casas
+                pos.DefinirValores(posicao.linha - 2, posicao.coluna);
+                if (tab.PosicaValida(pos) && Livre(pos) && qteMovimentos == 0)
+                {
+                    mat[pos.linha, pos.coluna] = true;
+                }
+                //pegar inimigo diagonal direita
+                pos.DefinirValores(posicao.linha - 1, posicao.coluna + 1);
+                if (tab.PosicaValida(pos) && ExisteInimigo(pos))
+                {
+                    mat[pos.linha, pos.coluna] = true;
+                }
+                //pegar inimigo diagonal direita
+                pos.DefinirValores(posicao.linha - 1, posicao.coluna - 1);
+                if (tab.PosicaValida(pos) && ExisteInimigo(pos))
+                {
+                    mat[pos.linha, pos.coluna] = true;
+                }
+
             }
-            //nordeste
-            pos.DefinirValores(posicao.linha - 1, posicao.coluna + 1);
-            if (tab.PosicaValida(pos) && PodeMover(pos))
+            if (cor == Cor.Preta)
             {
-                mat[pos.linha, pos.coluna] = true;
+                //andar uma casa
+                pos.DefinirValores(posicao.linha + 1, posicao.coluna);
+                if (tab.PosicaValida(pos) && Livre(pos))
+                {
+                    mat[pos.linha, pos.coluna] = true;
+                }
+                //andar duas casas
+                pos.DefinirValores(posicao.linha + 2, posicao.coluna);
+                if (tab.PosicaValida(pos) && Livre(pos) && qteMovimentos == 0)
+                {
+                    mat[pos.linha, pos.coluna] = true;
+                }
+                //pegar inimigo diagonal direita
+                pos.DefinirValores(posicao.linha + 1, posicao.coluna + 1);
+                if (tab.PosicaValida(pos) && ExisteInimigo(pos))
+                {
+                    mat[pos.linha, pos.coluna] = true;
+                }
+                //pegar inimigo diagonal direita
+                pos.DefinirValores(posicao.linha + 1, posicao.coluna - 1);
+                if (tab.PosicaValida(pos) && ExisteInimigo(pos))
+                {
+                    mat[pos.linha, pos.coluna] = true;
+                }
             }
-            //noroeste
-            pos.DefinirValores(posicao.linha - 1, posicao.coluna - 1);
-            if (tab.PosicaValida(pos) && PodeMover(pos))
-            {
-                mat[pos.linha, pos.coluna] = true;
-            }
-            
-            //sudeste
-            pos.DefinirValores(posicao.linha + 1, posicao.coluna + 1);
-            if (tab.PosicaValida(pos) && PodeMover(pos))
-            {
-                mat[pos.linha, pos.coluna] = true;
-            }
-            //sudoeste
-            pos.DefinirValores(posicao.linha + 1, posicao.coluna - 1);
-            if (tab.PosicaValida(pos) && PodeMover(pos))
-            {
-                mat[pos.linha, pos.coluna] = true;
-            }
+
             return mat;
         }
 
